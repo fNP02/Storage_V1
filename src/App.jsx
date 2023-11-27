@@ -10,12 +10,14 @@ import { v4 } from "uuid";
 
 function App() {
   const [file, setFile] = useState();
+  const [link, setLink] = useState();
 
   const handleUpload = async (e) => {
     try {
       // throw new Error('fallo al subir')  // para forzar (simular) un error
-      const result = await uploadFile(file);
-      console.log(result);
+      const link = await uploadFile(file);
+      console.log(link);
+      setLink(link)
     } catch (error) {
       console.log(error);
     }
@@ -37,7 +39,10 @@ function App() {
       <h1>Storage Test</h1>
       <input onChange={(e) => setFile(e.target.files[0])} type="file" />
       <button onClick={handleUpload}>Subir</button>
-      <p>link</p>
+      <p>{link}</p>
+      <div>
+        <img src={link||''} alt="" />
+      </div>
     </>
   );
 }
